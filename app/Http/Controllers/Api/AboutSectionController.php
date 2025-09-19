@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class AboutSectionController extends Controller
 {
-    // Rename apiIndex to index
     public function index()
     {
         try {
@@ -16,9 +15,9 @@ class AboutSectionController extends Controller
                 ->orderBy('sort_order', 'asc')
                 ->get()
                 ->map(function ($section) {
-                    // Add full image URL to each section
+                    // Update to use uploads directory instead of storage
                     $section->image_url = $section->image_path 
-                        ? asset('storage/' . $section->image_path) 
+                        ? asset('uploads/' . $section->image_path) 
                         : null;
                     return $section;
                 });

@@ -10,7 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Storage;
 
 class AboutUsResource extends Resource
 {
@@ -18,7 +17,7 @@ class AboutUsResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-information-circle';
 
-   protected static ?string $navigationGroup = 'Home Page';
+    protected static ?string $navigationGroup = 'Home Page';
 
     public static function form(Form $form): Form
     {
@@ -51,9 +50,9 @@ class AboutUsResource extends Resource
                 Forms\Components\FileUpload::make('image_1')
                     ->label('First Image')
                     ->disk('public')
-                    ->image()
                     ->directory('about-us')
                     ->preserveFilenames()
+                    ->image()
                     ->imageResizeMode('cover')
                     ->imageCropAspectRatio('3:4')
                     ->imageResizeTargetWidth('600')

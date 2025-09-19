@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -13,7 +12,14 @@ class HeroSectionController extends Controller
     {
         $heroSections = HeroSection::where('is_active', true)
             ->orderBy('sort_order', 'asc')
-            ->get();
+            ->get()
+            ->map(function ($heroSection) {
+                // Convert storage path to URL
+                if ($heroSection->image_url) {
+                    $heroSection->image_url = asset('uploads/' . $heroSection->image_url);
+                }
+                return $heroSection;
+            });
             
         return response()->json($heroSections);
     }

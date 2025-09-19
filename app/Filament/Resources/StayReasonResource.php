@@ -18,6 +18,7 @@ class StayReasonResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationGroup = 'Home Page';
+protected static ?string $navigationLabel = 'Stay With Us ';
 
     public static function form(Form $form): Form
     {

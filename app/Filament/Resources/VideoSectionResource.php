@@ -20,6 +20,7 @@ class VideoSectionResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-video-camera';
     
     protected static ?string $navigationGroup = 'Home Page';
+     protected static ?string $navigationLabel = 'Video two ';
     protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form

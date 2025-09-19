@@ -29,11 +29,11 @@ class AboutSectionResource extends Resource
                     ->maxLength(65535)
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image_path')
-                    ->disk('public')
+                    ->disk('public') // This now points to the uploads directory
                     ->preserveFilenames()
                     ->label('Background Image')
                     ->image()
-                    ->directory('about-sections')
+                    ->directory('about-sections') // This will store in public/uploads/about-sections
                     ->required(),
                 Forms\Components\TextInput::make('height')
                     ->numeric()
@@ -57,7 +57,7 @@ class AboutSectionResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image_path')
-                    ->disk('public')
+                    ->disk('public') // This now points to the uploads directory
                     ->label('Image'),
                 Tables\Columns\TextColumn::make('height')
                     ->numeric()

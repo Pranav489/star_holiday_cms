@@ -21,10 +21,23 @@ use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\AboutSaputaraController;
 use App\Http\Controllers\Api\FestivalGalleryController;
 use App\Http\Controllers\Api\ContactInfoController;
-
-
+use App\Http\Controllers\Api\RoomController;
+use App\Http\Controllers\Api\CoupleRoomVideoController;
+use App\Http\Controllers\Api\CoupleRoomImageController;
+use App\Http\Controllers\Api\FamilyRoomVideoController;
+use App\Http\Controllers\Api\FamilyRoomImageController;
+use App\Http\Controllers\Api\SixBedroomVideoController;
+use App\Http\Controllers\Api\SixRoomImageController;
+use App\Http\Controllers\Api\CoupleRoomController;
+use App\Http\Controllers\Api\ImpactStatController;
+use App\Http\Controllers\Api\FamilyRoomAboutController;
+use App\Http\Controllers\Api\CoupleRoomAboutController;
+use App\Http\Controllers\Api\SixbedroomAboutController;
+use App\Http\Controllers\Api\FamilyAboutSectionController;
+use App\Http\Controllers\Api\FourBedRoomAboutController;
 
 Route::prefix('/api')->group(function () {
+    Route::get('/family-rooms-about', [FamilyRoomsAboutSectionController::class, 'index']);
     Route::get('/hero-sections', [HeroSectionController::class, 'index']);
     Route::get('/hotel-booking-section', [HotelBookingSectionController::class, 'index']);
     Route::get('/video-section', [VideoSectionController::class, 'showActive']);
@@ -49,4 +62,24 @@ Route::prefix('/api')->group(function () {
     Route::get('/festival-gallery', [FestivalGalleryController::class, 'index']);
     Route::get('/festival-gallery/category/{categoryId}', [FestivalGalleryController::class, 'byCategory']);
     Route::get('/contact', [ContactInfoController::class, 'index']);
+    Route::get('/Luxury-room', [RoomController::class, 'index']);
+    Route::get('/couple-room-videos', [CoupleRoomVideoController::class, 'index']);
+    Route::get('/couple-room-images', [CoupleRoomImageController::class, 'index']);
+    Route::get('/family-room-videos', [FamilyRoomVideoController::class, 'index']);
+    Route::get('/family-room-images', [FamilyRoomImageController::class, 'index']);
+    Route::get('/six-bedroom-videos', [SixBedroomVideoController::class, 'index']);
+    Route::get('/six-room-images', [SixRoomImageController::class, 'index']);
+    Route::get('/couple-rooms', [CoupleRoomController::class, 'index']);
+    Route::get('/impact-stats', [ImpactStatController::class, 'active']);
+    Route::get('/couple-room-about', [CoupleRoomAboutController::class, 'index']);
+    // Route::get('/family-rooms-about', [FamilyAboutSectionController::class, 'index']);
+    // Route::get('/sixbedroom-about', [SixbedroomAboutController::class, 'index']);
+    Route::get('/sixbedroom-about', [SixbedroomAboutController::class, 'index']);
+    Route::get('/four-bedroom-about', [FourBedRoomAboutController::class, 'index']);
+Route::post('/four-bedroom-about', [FourBedRoomAboutController::class, 'store']);
+
+   
+
+
+
 });

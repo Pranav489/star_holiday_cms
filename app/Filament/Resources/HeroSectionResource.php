@@ -10,7 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile; // Add this import
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile; 
 
 class HeroSectionResource extends Resource
 {
@@ -49,11 +49,10 @@ class HeroSectionResource extends Resource
                             ])
                             ->nullable(),
                         Forms\Components\FileUpload::make('image_url')
-                            ->directory('hero-images')
-                            ->disk('public')
+                            ->directory('hero-images') // This will store in public/uploads/hero-images
+                            ->disk('public') // Using the 'public' disk we configured
                             ->image()
                             ->required()
-                            // Store the relative path only
                             ->preserveFilenames()
                             ->getUploadedFileNameForStorageUsing(
                                 fn (TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
@@ -74,7 +73,8 @@ class HeroSectionResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image_url')
                     ->label('Image')
-                    ->disk('public'), // Specify the disk
+                    ->disk('public')
+                    ->url(fn ($record) => asset('uploads/' . $record->image_url)),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()
                     ->sortable(),

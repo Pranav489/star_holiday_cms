@@ -16,7 +16,7 @@ class RestaurantSectionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
-    protected static ?string $navigationGroup = 'Sections';
+    protected static ?string $navigationGroup = 'Home Page';
 
     protected static ?string $navigationLabel = 'Restaurant Section';
 
@@ -42,14 +42,13 @@ class RestaurantSectionResource extends Resource
                     ->reorderableWithButtons()
                     ->schema([
                         Forms\Components\FileUpload::make('image_path')
-                            ->disk('public')
+                            ->disk('public') // Changed to use the 'public' disk which points to uploads
                             ->preserveFilenames()
                             ->label('Image')
                             ->image()
                             ->directory('restaurant-images')
                             ->required()
                             ->columnSpan(2)
-                            ->disk('public')
                             ->visibility('public')
                             ->preserveFilenames()
                             ->imageResizeMode('cover')

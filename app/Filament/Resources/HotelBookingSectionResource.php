@@ -20,7 +20,7 @@ class HotelBookingSectionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-video-camera';   
      protected static ?string $navigationGroup = 'Home Page';
-
+ protected static ?string $navigationLabel = 'Video one ';
 
     public static function form(Form $form): Form
     {

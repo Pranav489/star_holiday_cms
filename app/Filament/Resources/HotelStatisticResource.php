@@ -17,7 +17,8 @@ class HotelStatisticResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
 
- protected static ?string $navigationGroup = 'Home Page';
+ protected static ?string $navigationGroup = 'Management';
+ protected static ?string $navigationLabel = 'Hotel ';
 
     public static function form(Form $form): Form
     {

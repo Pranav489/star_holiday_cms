@@ -1,5 +1,4 @@
 <?php
-// app/Filament/Resources/ResortVideoResource.php
 
 namespace App\Filament\Resources;
 
@@ -10,7 +9,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Storage;
 
 class ResortVideoResource extends Resource
 {
@@ -20,34 +18,33 @@ class ResortVideoResource extends Resource
 
     protected static ?string $navigationGroup = 'About Us Page';
 
-  public static function form(Form $form): Form
-{
-    return $form
-        ->schema([
-            Forms\Components\Section::make('Video Configuration')
-                ->schema([
-                    Forms\Components\Toggle::make('use_uploaded_video')
-                        ->label('Use uploaded video instead of YouTube')
-                        ->reactive(),
-                    Forms\Components\TextInput::make('youtube_url')
-                        ->label('YouTube Video URL')
-                        ->placeholder('https://www.youtube.com/embed/cUXa7jfI4Po')
-                        ->url()
-                        ->hidden(fn ($get) => $get('use_uploaded_video'))
-                        ->required(fn ($get) => !$get('use_uploaded_video')),
-                    Forms\Components\FileUpload::make('uploaded_video_path') // Changed field name
-                        ->label('Upload Video')
-                        ->disk('public')
-                        ->preserveFilenames()
-                        ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/ogg'])
-                        ->maxSize(51200) // 50MB
-                        ->directory('resort-videos')
-                        ->visibility('public')
-                        ->hidden(fn ($get) => !$get('use_uploaded_video'))
-                        ->required(fn ($get) => $get('use_uploaded_video'))
-                        ->helperText('Max file size: 50MB. Supported formats: MP4, WebM, OGG'),
-                ]),
-            
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\Section::make('Video Configuration')
+                    ->schema([
+                        Forms\Components\Toggle::make('use_uploaded_video')
+                            ->label('Use uploaded video instead of YouTube')
+                            ->reactive(),
+                        Forms\Components\TextInput::make('youtube_url')
+                            ->label('YouTube Video URL')
+                            ->placeholder('https://www.youtube.com/embed/cUXa7jfI4Po')
+                            ->url()
+                            ->hidden(fn ($get) => $get('use_uploaded_video'))
+                            ->required(fn ($get) => !$get('use_uploaded_video')),
+                        Forms\Components\FileUpload::make('uploaded_video_path')
+                            ->label('Upload Video')
+                            ->disk('public')
+                            ->preserveFilenames()
+                            ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/ogg'])
+                            ->maxSize(51200) // 50MB
+                            ->directory('resort-videos')
+                            ->visibility('public')
+                            ->hidden(fn ($get) => !$get('use_uploaded_video'))
+                            ->required(fn ($get) => $get('use_uploaded_video'))
+                            ->helperText('Max file size: 50MB. Supported formats: MP4, WebM, OGG'),
+                    ]),
                 
                 Forms\Components\Section::make('Video Settings')
                     ->schema([
@@ -86,8 +83,8 @@ class ResortVideoResource extends Resource
                     ->label('YouTube URL')
                     ->limit(30)
                     ->toggleable(),
-                Tables\Columns\TextColumn::make('uploaded_video')
-                    ->label('Uploaded Video')
+                Tables\Columns\TextColumn::make('video_url')
+                    ->label('Uploaded Video URL')
                     ->toggleable(),
                 Tables\Columns\IconColumn::make('autoplay')
                     ->boolean(),

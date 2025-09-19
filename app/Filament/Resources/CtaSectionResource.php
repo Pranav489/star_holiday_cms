@@ -10,14 +10,13 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Storage;
 
 class CtaSectionResource extends Resource
 {
     protected static ?string $model = CtaSection::class;
 
-    // FIXED: Changed to a valid heroicon name
     protected static ?string $navigationIcon = 'heroicon-o-photo';
-
     protected static ?string $navigationGroup = 'Home Page';
 
     public static function form(Form $form): Form
@@ -35,11 +34,13 @@ class CtaSectionResource extends Resource
                             ->maxLength(65535)
                             ->label('Description')
                             ->columnSpanFull(),
-                        Forms\Components\TextInput::make('image_url')
-                            ->required()
-                            ->maxLength(255)
-                            ->label('Image URL')
-                            ->placeholder('https://example.com/image.jpg'),
+                        // Forms\Components\FileUpload::make('image_url')
+                        //     ->required()
+                        //     ->image()
+                        //     ->directory('uploads/cta')
+                        //     ->visibility('public')
+                        //     ->label('CTA Image')
+                        //     ->columnSpanFull(),
                         Forms\Components\TextInput::make('phone_number')
                             ->required()
                             ->tel()
@@ -57,6 +58,9 @@ class CtaSectionResource extends Resource
     {
         return $table
             ->columns([
+                // Tables\Columns\ImageColumn::make('image_url')
+                //     ->label('Image')
+                //     ->disk('public'),
                 Tables\Columns\TextColumn::make('title')
                     ->sortable()
                     ->searchable()
@@ -82,7 +86,14 @@ class CtaSectionResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->before(function ($action, $records) {
+                        foreach ($records as $record) {
+                            if ($record->image_url) {
+                                Storage::disk('public')->delete($record->image_url);
+                            }
+                        }
+                    }),
             ]);
     }
     

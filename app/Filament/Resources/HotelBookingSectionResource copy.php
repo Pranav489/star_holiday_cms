@@ -19,8 +19,7 @@ class HotelBookingSectionResource extends Resource
     protected static ?string $model = HotelBookingSection::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-video-camera';   
-     protected static ?string $navigationGroup = 'Home Page';
-
+    protected static ?string $navigationGroup = 'Home Page';
 
     public static function form(Form $form): Form
     {
@@ -29,11 +28,6 @@ class HotelBookingSectionResource extends Resource
                 ->required()
                 ->maxLength(255)
                 ->columnSpanFull(),
-
-            // Forms\Components\Textarea::make('description')
-            //     ->maxLength(65535)
-            //     ->columnSpanFull()
-            //     ->rows(4),
 
             Forms\Components\TextInput::make('button_text')
                 ->default('BOOK NOW')
@@ -67,6 +61,8 @@ class HotelBookingSectionResource extends Resource
                 ->columnSpanFull(),
 
             Forms\Components\FileUpload::make('uploaded_video')
+                ->disk('public') // This will use the 'public' disk configured to use 'uploads' directory
+                ->preserveFilenames()
                 ->label('Upload Video')
                 ->directory('hotel-videos')
                 ->visibility('public')

@@ -21,11 +21,11 @@ class RestaurantSectionController extends Controller
             ], 404);
         }
         
-        // Transform the data to include full image URLs
+        // Transform the data to include full image URLs - changed from storage to uploads
         $transformedImages = $section->images->map(function($image) {
             return [
                 'id' => $image->id,
-                'image_path' => asset('storage/' . $image->image_path),
+                'image_path' => asset('uploads/' . $image->image_path),
                 'order' => $image->order,
                 'created_at' => $image->created_at,
                 'updated_at' => $image->updated_at,
